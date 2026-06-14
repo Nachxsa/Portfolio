@@ -143,6 +143,8 @@ footer{position:relative;z-index:1;padding:2.5rem 4rem 2rem}
 </head>
 <body>
 
+<div id="bg-grid"><canvas id="gridCanvas"></canvas></div>
+
 <div class="island-wrap">
   <div class="island">
     <div class="i-links">
@@ -260,6 +262,49 @@ footer{position:relative;z-index:1;padding:2.5rem 4rem 2rem}
 </div>
 
 <script>
+/* ── GRID CANVAS ── */
+(function(){
+  const canvas=document.getElementById('gridCanvas');
+  const ctx=canvas.getContext('2d');
+  const CELL=60;
+  let W,H,cols,rows,nodes,t=0;
+  function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
+    cols=Math.ceil(W/CELL)+1;rows=Math.ceil(H/CELL)+1;
+    nodes=[];
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)
+      nodes.push({x:c*CELL,y:r*CELL,phase:Math.random()*Math.PI*2,speed:0.3+Math.random()*0.4});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#0e1628';ctx.fillRect(0,0,W,H);
+    [{x:W*.5,y:H*.15,r:W*.55,c:'rgba(0,140,200,0.10)'},{x:W*.1,y:H*.7,r:W*.4,c:'rgba(0,80,160,0.10)'},{x:W*.9,y:H*.5,r:W*.35,c:'rgba(0,180,216,0.07)'}].forEach(b=>{
+      const g=ctx.createRadialGradient(b.x,b.y,0,b.x,b.y,b.r);
+      g.addColorStop(0,b.c);g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    });
+    for(let r=0;r<rows;r++){
+      ctx.beginPath();
+      for(let c=0;c<cols;c++){
+        const n=nodes[r*cols+c];
+        const pulse=Math.sin(t*n.speed+n.phase);
+        if(c===0)ctx.moveTo(n.x,n.y);else ctx.lineTo(n.x,n.y);
+        if(pulse>0.7){ctx.save();ctx.beginPath();ctx.arc(n.x,n.y,1.2,0,Math.PI*2);ctx.fillStyle=`rgba(0,180,216,${(pulse-0.7)*0.8})`;ctx.fill();ctx.restore();}
+      }
+      const rp=Math.sin(t*0.3+r*0.5);
+      ctx.strokeStyle=`rgba(0,180,216,${0.04+(rp*.5+.5)*0.06})`;ctx.lineWidth=0.5;ctx.stroke();
+    }
+    for(let c=0;c<cols;c++){
+      ctx.beginPath();
+      for(let r=0;r<rows;r++){const n=nodes[r*cols+c];if(r===0)ctx.moveTo(n.x,n.y);else ctx.lineTo(n.x,n.y);}
+      const cp=Math.sin(t*0.25+c*0.6);
+      ctx.strokeStyle=`rgba(0,180,216,${0.04+(cp*.5+.5)*0.05})`;ctx.lineWidth=0.5;ctx.stroke();
+    }
+    t+=0.012;requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);resize();draw();
+})();
 
 /* ── PROJECTS ── */
 // ✏️ Editá este array con tus proyectos reales
