@@ -48,9 +48,25 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);over
 .sec-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:300;letter-spacing:-0.01em;background:linear-gradient(120deg,var(--white) 0%,var(--acc3) 45%,var(--acc2) 80%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
 .sec-title-lg{font-size:clamp(2.4rem,5vw,3.8rem);font-weight:300;letter-spacing:-0.02em;background:linear-gradient(120deg,var(--white) 0%,var(--acc3) 45%,var(--acc2) 80%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
 .clients-outer{position:relative;z-index:1;max-width:100%;padding:0 0 4rem;overflow:hidden}
-.carousel-fade-l,.carousel-fade-r{position:absolute;top:0;bottom:0;width:120px;z-index:2;pointer-events:none}
-.carousel-fade-l{left:0;background:linear-gradient(to right,rgba(18,32,58,0.9),transparent)}
-.carousel-fade-r{right:0;background:linear-gradient(to left,rgba(18,32,58,0.9),transparent)}
+.carousel-fade-l,
+.carousel-fade-r{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:120px;
+  z-index:2;
+  pointer-events:none;
+}
+
+.carousel-fade-l{
+  left:0;
+  background:linear-gradient(to right,rgba(18,32,58,0.8),transparent);
+}
+
+.carousel-fade-r{
+  right:0;
+  background:linear-gradient(to left,rgba(18,32,58,0.8),transparent);
+}
 .carousel-track{display:flex;gap:1rem;width:max-content}
 .carousel-track.running{animation:scrollc var(--dur,30s) linear infinite}
 .carousel-track:hover{animation-play-state:paused}
