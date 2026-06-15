@@ -315,7 +315,8 @@ function buildCard(c){
   return div;
 }
 const track=document.getElementById('carousel');
-for(let i=0;i<8;i++) clients.forEach(c=>track.appendChild(buildCard(c)));
+const repeat = 12;
+for(let i=0;i<repeat;i++) clients.forEach(c=>track.appendChild(buildCard(c)));
 requestAnimationFrame(()=>{
   const gap=16;
   const oneSet=clients.length*(track.children[0].offsetWidth+gap);
