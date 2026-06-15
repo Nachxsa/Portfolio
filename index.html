@@ -58,19 +58,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);over
   pointer-events:none;
 }
 
+
 .carousel-fade-l{
   left:0;
-  background:linear-gradient(to right,rgba(18,32,58,0.8),transparent);
+  background:linear-gradient(to right, rgba(18,32,58,0.95), rgba(18,32,58,0));
 }
 
 .carousel-fade-r{
   right:0;
-  background:linear-gradient(to left,rgba(18,32,58,0.8),transparent);
-}
-
-.carousel-fade-l,
-.carousel-fade-r{
-  display:none;
+  background:linear-gradient(to left, rgba(18,32,58,0.95), rgba(18,32,58,0));
 }
   
 .carousel-track{display:flex;gap:1rem;width:max-content}
